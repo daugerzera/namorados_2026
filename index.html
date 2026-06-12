@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Para a Malu 💕</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --rose: #e8a0b0;
+            --gold: #c9a84c;
+            --deep: #0d0a0e;
+            --card: #17121c;
+            --muted: #9d8fa8;
+            --text: #f0eaf5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--deep);
+            color: var(--text);
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        /* ──── PETALS ──── */
+        #petals-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ──── HERO ──── */
+        #hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 1.5rem 4rem;
+            z-index: 1;
+        }
+
+        .heart-pulse {
+            font-size: clamp(3rem, 15vw, 6rem);
+            animation: heartbeat 1.4s ease-in-out infinite;
+            display: block;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 18px #e8a0b060);
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            14% {
+                transform: scale(1.18);
+            }
+
+            28% {
+                transform: scale(1);
+            }
+
+            42% {
+                transform: scale(1.13);
+            }
+
+            70% {
+                transform: scale(1);
+            }
+        }
+
+        .eyebrow {
+            font-family: 'Lato', sans-serif;
+            font-size: .72rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: .9rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 9vw, 5rem);
+            line-height: 1.1;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1.2rem;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--rose);
+        }
+
+        .hero-sub {
+            font-size: clamp(.95rem, 3vw, 1.15rem);
+            color: var(--muted);
+            max-width: 28ch;
+            line-height: 1.7;
+            margin-bottom: 2.8rem;
+        }
+
+        .scroll-cue {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .4rem;
+            color: var(--muted);
+            font-size: .75rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            animation: bob 2s ease-in-out infinite;
+        }
+
+        .scroll-cue svg {
+            opacity: .5;
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(6px);
+            }
+        }
+
+        /* ──── SECTIONS ──── */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 1.5rem;
+        }
+
+        .section-label {
+            font-size: .68rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            text-align: center;
+            margin-bottom: 2.8rem;
+            font-weight: 400;
+            line-height: 1.25;
+        }
+
+        h2 em {
+            color: var(--rose);
+            font-style: italic;
+        }
+
+        /* divider */
+        .divider {
+            width: 48px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 2.8rem;
+            opacity: .5;
+        }
+
+        /* ──── TIMELINE ──── */
+        .timeline {
+            max-width: 520px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--rose) 15%, var(--rose) 85%, transparent);
+            opacity: .3;
+        }
+
+        .tl-item {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2.4rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .tl-item.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .tl-dot {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 1px solid var(--rose);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .tl-body {}
+
+        .tl-date {
+            font-size: .7rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: .3rem;
+        }
+
+        .tl-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            margin-bottom: .3rem;
+        }
+
+        .tl-desc {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* ──── QUOTES ──── */
+        #quotes {
+            background: var(--card);
+        }
+
+        .quote-carousel {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            min-height: 220px;
+            overflow: hidden;
+        }
+
+        .quote-slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity .8s ease;
+            pointer-events: none;
+        }
+
+        .quote-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--rose);
+            opacity: .25;
+            line-height: .7;
+            margin-bottom: .6rem;
+        }
+
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .quote-author {
+            font-size: .78rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .quote-dots {
+            display: flex;
+            justify-content: center;
+            gap: .5rem;
+            margin-top: 2rem;
+        }
+
+        .quote-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--muted);
+            cursor: pointer;
+            transition: background .3s, transform .3s;
+        }
+
+        .quote-dot.active {
+            background: var(--rose);
+            transform: scale(1.4);
+        }
+
+        /* ──── GALLERY ──── */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        .polaroid {
+            background: #1c1624;
+            padding: .8rem .8rem .4rem;
+            border-radius: 3px;
+            box-shadow: 0 8px 30px #00000060;
+            transform: rotate(var(--rot, -1.5deg));
+            transition: transform .35s ease, box-shadow .35s ease;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity .7s ease, transform .7s ease, box-shadow .35s ease;
+        }
+
+        .polaroid.visible {
+            opacity: 1;
+            transform: rotate(var(--rot, -1.5deg));
+        }
+
+        .polaroid:hover,
+        .polaroid:focus {
+            transform: rotate(0deg) scale(1.04);
+            box-shadow: 0 16px 50px #00000080;
+            z-index: 2;
+        }
+
+        .polaroid-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+            border-radius: 1px;
+            background: #2a1f33;
+        }
+
+        .polaroid-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #2a1f33, #1a1225);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: .5rem;
+            border-radius: 1px;
+        }
+
+        .polaroid-placeholder span:first-child {
+            font-size: 2rem;
+            opacity: .4;
+        }
+
+        .polaroid-placeholder span:last-child {
+            font-size: .65rem;
+            color: var(--muted);
+            text-align: center;
+            padding: 0 .4rem;
+        }
+
+        .polaroid-caption {
+            font-family: 'Lato', sans-serif;
+            font-size: .72rem;
+            color: var(--muted);
+            text-align: center;
+            padding: .5rem .2rem .1rem;
+            font-style: italic;
+        }
+
+        /* ──── SURPRISE ──── */
+        #surprise {
+            background: radial-gradient(ellipse at center, #1f0e2c 0%, var(--deep) 70%);
+        }
+
+        .reveal-card {
+            max-width: 380px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid rgba(232, 160, 176, .2);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(232, 160, 176, .08);
+            opacity: 0;
+            transform: scale(.94);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .pizza-icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 1.2rem;
+            animation: spin-in .8s ease forwards;
+        }
+
+        @keyframes spin-in {
+            from {
+                transform: rotate(-20deg) scale(.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .restaurant-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--rose);
+            margin-bottom: .5rem;
+        }
+
+        .restaurant-address {
+            font-size: .82rem;
+            color: var(--muted);
+            margin-bottom: 1.6rem;
+            line-height: 1.6;
+        }
+
+        .time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: rgba(201, 168, 76, .12);
+            border: 1px solid rgba(201, 168, 76, .3);
+            color: var(--gold);
+            border-radius: 99px;
+            padding: .6rem 1.4rem;
+            font-size: .88rem;
+            letter-spacing: .06em;
+            margin-bottom: 1.8rem;
+        }
+
+        .reveal-msg {
+            font-size: .9rem;
+            color: var(--muted);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* ──── FOOTER ──── */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            color: var(--muted);
+            font-size: .8rem;
+        }
+
+        footer .big-heart {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: .8rem;
+            animation: heartbeat 1.8s ease-in-out infinite;
+        }
+
+        /* ──── REVEAL ON SCROLL ──── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ──── LIGHTBOX ──── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .88);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+
+        #lightbox.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #lightbox img {
+            max-width: 100%;
+            max-height: 90svh;
+            border-radius: 4px;
+            box-shadow: 0 0 80px #000;
+        }
+
+        #lightbox .lb-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Falling petals -->
+    <canvas id="petals-canvas"></canvas>
+
+    <!-- ══════════════════ HERO ══════════════════ -->
+    <section id="hero">
+        <span class="heart-pulse">💕</span>
+        <p class="eyebrow">Dia dos Namorados</p>
+        <h1>Para você, <em>Malu</em>,<br>Meu amor todinho!</h1>
+        <p class="hero-sub">Preparei algo especial pra você. Role para baixo com calma — cada parte é só sua.</p>
+        <div class="scroll-cue">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            role pra baixo
+        </div>
+    </section>
+
+    <!-- ══════════════════ TIMELINE ══════════════════ -->
+    <section id="historia">
+        <p class="section-label">nossa história</p>
+        <h2>Alguns momentos<br><em>que nos trouxeram até aqui</em></h2>
+        <div class="divider"></div>
+
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-dot">✨</div>
+                <div class="tl-body">
+                    <p class="tl-date">O começo — Julho de 2022</p>
+                    <p class="tl-title">O dia em que tudo começou</p>
+                    <p class="tl-desc">Aquele acampamento que tudo mudaria. Naquela noite, nossos destinos foram
+                        entrelaçados.</p>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-dot">🌙</div>
+                <div class="tl-body">
+                    <p class="tl-date">Mundo de Oz - Maio de 2023</p>
+                    <p class="tl-title">Nosso primeiro festival na Aldeia</p>
+                    <p class="tl-desc">É lindo demais poder compartilhar momentos assim com você. Role onde conheceu o
+                        Necro e mais um pouquinho do Darkpsy ⛤.</p>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-dot">🎓</div>
+                <div class="tl-body">
+                    <p class="tl-date">Formatura - Agosto de 2025</p>
+                    <p class="tl-title">Um dia de muito orgulho</p>
+                    <p class="tl-desc">A coisa que mais admiro em você é a força que tu tens para realizar as coisas. É
+                        inspiração para mim e para muitas pessoas que te amam.</p>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-dot">💕</div>
+                <div class="tl-body">
+                    <p class="tl-date">Hoje — já são 3 anos!</p>
+                    <p class="tl-title">E ainda só está começando..</p>
+                    <p class="tl-desc">Tudo o que vivemos foi só o prólogo. Temos muitos capítulos lindos pra escrever
+                        juntos!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════ QUOTES ══════════════════ -->
+    <section id="quotes">
+        <p class="section-label">Te amo com todo o meu amor</p>
+        <h2>O que você<br><em>significa pra mim:</em></h2>
+        <div class="divider"></div>
+
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-mark">"</div>
+                <blockquote>Eu te escolho todos os dias — nos fáceis, nos difíceis, e em todos os que vierem pela
+                    frente.</blockquote>
+                <span class="quote-author">O que eu sinto</span>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-mark">"</div>
+                <blockquote>Com você aprendi que o lar não é um lugar. É certeza de estar ao seu lado.</blockquote>
+                <span class="quote-author">Você é meu lar</span>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-mark">"</div>
+                <blockquote>Obrigado por me aceitar exatamente como sou. E por sempre me fazer querer ser melhor.
+                </blockquote>
+                <span class="quote-author">Com gratidão</span>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-mark">"</div>
+                <blockquote>Você transformou coisas simples em memórias que eu vou guardar pra sempre.</blockquote>
+                <span class="quote-author">Para sempre minha</span>
+            </div>
+        </div>
+
+        <div class="quote-dots">
+            <div class="quote-dot active" data-i="0"></div>
+            <div class="quote-dot" data-i="1"></div>
+            <div class="quote-dot" data-i="2"></div>
+            <div class="quote-dot" data-i="3"></div>
+        </div>
+    </section>
+
+    <!-- ══════════════════ GALLERY ══════════════════ -->
+    <section id="fotos">
+        <p class="section-label">nossas memórias</p>
+        <h2>Momentos que<br><em>vivemos juntos</em> 💖</h2>
+        <div class="divider"></div>
+
+        <div class="gallery-grid">
+            <!-- Para usar fotos reais: substitua o bloco .polaroid-placeholder por <img class="polaroid-img" src="SUA_FOTO.jpg" alt="..."> -->
+            <div class="polaroid" style="--rot: -2deg;">
+                <div class="polaroid-placeholder">
+                    <img class="polaroid-img" src="./images/1.jpeg" >
+                </div>
+                <p class="polaroid-caption">nosso lugar favorito</p>
+            </div>
+            <div class="polaroid" style="--rot: 1.5deg;">
+                <div class="polaroid-placeholder">
+                    <img class="polaroid-img" src="./images/2.jpeg" >
+                </div>
+                <p class="polaroid-caption">feliz ao seu lado</p>
+            </div>
+            <div class="polaroid" style="--rot: -1deg;">
+                <div class="polaroid-placeholder">
+                    <img class="polaroid-img" src="./images/3.jpeg" >
+                </div>
+                <p class="polaroid-caption">meu orgulho</p>
+            </div>
+            <div class="polaroid" style="--rot: 2.5deg;">
+                <div class="polaroid-placeholder">
+                    <img class="polaroid-img" src="./images/4.jpeg">
+                </div>
+                <p class="polaroid-caption">amo você</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════ SURPRISE ══════════════════ -->
+    <section id="surprise">
+        <p class="section-label fade-up">e tem mais uma coisa…</p>
+        <h2 class="fade-up">Temos uma <em>reserva</em><br>esperando por nós</h2>
+        <div class="divider fade-up"></div>
+
+        <div class="reveal-card">
+            <span class="pizza-icon">🍕</span>
+            <p class="restaurant-name">Pizzaria Elba D'Italia</p>
+            <p class="restaurant-address">
+                Av. Luiz Boiteux Piazza, 3540<br>
+                Cachoeira do Bom Jesus
+            </p>
+            <div class="time-badge">
+                🕖 &nbsp;21:30 — 12 de Junho
+            </div>
+            <p class="reveal-msg">
+                Porque algumas noites merecem ser comemoradas com boa comida, e a melhor companhia do mundo.
+            </p>
+        </div>
+    </section>
+
+    <!-- ══════════════════ FOOTER ══════════════════ -->
+    <footer>
+        <span class="big-heart">💕</span>
+        <p>Feito com muito amor, só pra você, minha vida.</p>
+        <p style="margin-top:.4rem; opacity:.8;">Feliz Dia dos Namorados ✨</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox">
+        <button class="lb-close" id="lb-close">✕</button>
+        <img id="lb-img" src="" alt="" />
+    </div>
+
+    <script>
+        /* ──── PETALS ──── */
+        const canvas = document.getElementById('petals-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H;
+        const PETAL_COUNT = 28;
+        const petals = [];
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function rand(a, b) { return a + Math.random() * (b - a); }
+
+        for (let i = 0; i < PETAL_COUNT; i++) {
+            petals.push({
+                x: rand(0, W), y: rand(-H, H),
+                r: rand(4, 10),
+                vy: rand(.4, 1.1),
+                vx: rand(-.3, .3),
+                angle: rand(0, Math.PI * 2),
+                spin: rand(-.02, .02),
+                alpha: rand(.15, .45),
+                hue: rand(340, 355)
+            });
+        }
+
+        function drawPetal(p) {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.angle);
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = `hsl(${p.hue},70%,75%)`;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, p.r, p.r * .55, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, W, H);
+            petals.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.angle += p.spin;
+                if (p.y > H + 20) { p.y = -20; p.x = rand(0, W); }
+                drawPetal(p);
+            });
+            requestAnimationFrame(animatePetals);
+        }
+
+        // Respect reduced motion
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            animatePetals();
+        }
+
+        /* ──── SCROLL REVEAL ──── */
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: .15 });
+
+        document.querySelectorAll('.tl-item, .polaroid, .reveal-card, .fade-up').forEach(el => io.observe(el));
+
+        // Stagger polaroids
+        document.querySelectorAll('.polaroid').forEach((el, i) => {
+            el.style.transitionDelay = `${i * .12}s`;
+        });
+
+        /* ──── QUOTES CAROUSEL ──── */
+        const slides = document.querySelectorAll('.quote-slide');
+        const dots = document.querySelectorAll('.quote-dot');
+        let current = 0, timer;
+
+        function goTo(n) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (n + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        dots.forEach(d => d.addEventListener('click', () => {
+            clearInterval(timer);
+            goTo(+d.dataset.i);
+            timer = setInterval(() => goTo(current + 1), 4500);
+        }));
+
+        timer = setInterval(() => goTo(current + 1), 4500);
+
+        /* ──── POLAROID LIGHTBOX ──── */
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const lbClose = document.getElementById('lb-close');
+
+        document.querySelectorAll('.polaroid').forEach(p => {
+            p.addEventListener('click', () => {
+                const img = p.querySelector('.polaroid-img');
+                if (!img) return;
+                lbImg.src = img.src;
+                lb.classList.add('open');
+            });
+        });
+
+        [lbClose, lb].forEach(el => el.addEventListener('click', e => {
+            if (e.target === lb || e.target === lbClose) lb.classList.remove('open');
+        }));
+    </script>
+</body>
+
+</html>
